@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sumaira 🖤</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #090909;
+    color: #fff1e8;
+    font-family: Georgia, serif;
+    text-align: center;
+}
+
+.page {
+    min-height: 100vh;
+    padding: 60px 24px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: appear 1.2s ease;
+}
+
+.page.active {
+    display: flex;
+}
+
+h1 {
+    font-size: clamp(30px, 8vw, 44px);
+    line-height: 1.4;
+}
+
+p {
+    font-size: 19px;
+    line-height: 1.9;
+    max-width: 550px;
+    white-space: pre-line;
+}
+
+button {
+    margin-top: 28px;
+    padding: 14px 28px;
+    background: #fff1e8;
+    color: #171111;
+    border: none;
+    border-radius: 30px;
+    font-size: 17px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.heart {
+    font-size: 35px;
+    margin: 15px;
+    animation: beat 1.4s infinite;
+}
+
+.eyes {
+    max-width: 100%;
+    width: 340px;
+    max-height: 45vh;
+    object-fit: contain;
+    border-radius: 16px;
+    margin: 20px 0;
+    box-shadow: 0 0 35px #6e373733;
+}
+
+.line {
+    opacity: 0;
+    animation: lineIn 1s forwards;
+}
+
+.small {
+    font-size: 14px;
+    opacity: .7;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.16); }
+}
+
+@keyframes lineIn {
+    to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="song.mp3" loop></audio>
+
+<section class="page active" id="page1">
+    <div class="heart">🖤</div>
+    <h1>open when you're alone 🖤</h1>
+    <p>hey you...</p>
+    <button onclick="startStory()">open this ♡</button>
+</section>
+
+<section class="page" id="page2">
+    <div class="heart">♡</div>
+    <h1>for my Sumaira</h1>
+    <p id="message"></p>
+    <button onclick="showPage(3)">there's more... ♡</button>
+</section>
+
+<section class="page" id="page3">
+    <h1>those eyes of yours...</h1>
+    <img class="eyes" src="pics/her-eyes.jpg"
+         alt="Your beautiful eyes">
+    <p id="poem"></p>
+    <button onclick="showPage(4)">one last thing ♡</button>
+</section>
+
+<section class="page" id="page4">
+    <div class="heart">🧡</div>
+    <h1>one last thing...</h1>
+    <p id="ending"></p>
+    <h1>ALWAYS BE HAPPY. 🧡</h1>
+    <p class="small">made with love, just for you ♡</p>
+    <button onclick="showPage(1)">read it again ↺</button>
+</section>
+
+<script>
+const messages = [
+    "Sumaira,",
+
+    "I don't even know how to explain it properly,",
+    "but somehow, you make ordinary moments feel special.",
+
+    "You have this little way of making me smile",
+    "even when my day isn't going the way I wanted.",
+
+    "And honestly?",
+    "You being you is already something special.",
+
+    "I hope you never forget how precious you are. ♡"
+];
+
+const poetry = [
+    "There is something about your eyes...",
+
+    "A kind of beauty",
+    "that words can never fully explain.",
+
+    "If I could keep one moment forever,",
+    "maybe it would be a moment",
+    "spent looking into those eyes.",
+
+    "Some things are felt, not explained. 🖤"
+];
+
+const endingLines = [
+    "No matter what life brings your way,",
+
+    "I hope you always find reasons to smile.",
+    "I hope your heart stays soft,",
+    "your dreams stay alive,",
+    "and your beautiful smile never disappears.",
+
+    "On your difficult days,",
+    "please remember that you matter.",
+
+    "Take care of yourself, okay?",
+    "Keep smiling, keep growing,",
+    "and never stop being the person you are.",
+
+    "You deserve so much happiness, Sumaira. 🧡"
+];
+
+function showPage(number) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById("page" + number)
+        .classList.add("active");
+
+    if (number === 2) revealLines("message", messages);
+    if (number === 3) revealLines("poem", poetry);
+    if (number === 4) revealLines("ending", endingLines);
+
+    window.scrollTo(0, 0);
+}
+
+function revealLines(id, lines) {
+    const box = document.getElementById(id);
+    box.innerHTML = "";
+
+    lines.forEach((line, index) => {
+        const span = document.createElement("span");
+        span.className = "line";
+        span.style.animationDelay = (index * 0.8) + "s";
+        span.textContent = line;
+        box.appendChild(span);
+        box.appendChild(document.createElement("br"));
+    });
+}
+
+function startStory() {
+    const music = document.getElementById("music");
+
+    music.play().catch(() => {
+        alert("Tap the button again to try playing the music.");
+    });
+
+    showPage(2);
+}
+</script>
+
+</body>
+</html>
